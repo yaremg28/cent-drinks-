@@ -122,12 +122,9 @@ export default function Menu() {
     }
   };
 
-  // Filtrado con búsqueda y categoría
   const filteredProducts = products.filter((item) => {
-    // Filtrar por categoría (o mostrar todos)
     const categoryMatch = selectedCategory === 'All' || item.category === selectedCategory;
 
-    // Filtrar por texto de búsqueda (busca en título y categoría, sin importar mayúsculas/minúsculas)
     const searchMatch =
       item.title.toLowerCase().includes(searchText.toLowerCase()) ||
       item.category.toLowerCase().includes(searchText.toLowerCase());
@@ -137,7 +134,7 @@ export default function Menu() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+  
       <Animatable.View animation="fadeInDown" style={styles.header}>
         {profile && profile.fotoURL ? (
           <Image source={{ uri: profile.fotoURL }} style={styles.avatar} />
@@ -172,7 +169,6 @@ export default function Menu() {
         </TouchableOpacity>
       </View>
 
-      {/* Categories */}
       <View style={styles.categories}>
         {categories.map((cat) => (
           <TouchableOpacity
@@ -187,7 +183,6 @@ export default function Menu() {
         ))}
       </View>
 
-      {/* Product list */}
       <FlatList
         data={filteredProducts}
         keyExtractor={(item) => item.id}
@@ -213,7 +208,6 @@ export default function Menu() {
         )}
       />
 
-      {/* Bottom Navigation */}
       <View style={styles.navbar}>
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Ionicons name="home" size={24} color="#E499DC" />
@@ -374,3 +368,4 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
 });
+
