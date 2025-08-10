@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Encabezado */}
+   
       <View style={styles.header}>
         <View style={styles.logoContainer}>
           <Image
@@ -42,7 +42,6 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      {/* Banner */}
       <Animatable.Image
         animation="fadeInDown"
         delay={300}
@@ -53,7 +52,6 @@ export default function Home() {
         style={styles.banner}
       />
 
-      {/* Sobre Nosotros */}
       <Animatable.View animation="fadeInUp" delay={500} style={styles.section}>
         <View style={styles.sectionContent}>
           <Ionicons name="information-circle-outline" size={24} color="#E499DC" />
@@ -72,7 +70,6 @@ export default function Home() {
         />
       </Animatable.View>
 
-      {/* Ayuda */}
       <Animatable.View animation="fadeInUp" delay={700} style={styles.section}>
         <View style={styles.sectionContent}>
           <Ionicons name="help-circle-outline" size={24} color="#E499DC" />
@@ -109,7 +106,6 @@ export default function Home() {
         </View>
       </Animatable.View>
 
-      {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>© 2025 Centro Drinks.</Text>
       </View>
@@ -232,3 +228,4 @@ const styles = StyleSheet.create({
     color: '#888',
   },
 });
+
