@@ -11,7 +11,7 @@ import {
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { auth, db } from './firebase'; // Ajusta ruta según tu proyecto
+import { auth, db } from './firebase';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 
 export default function AsignarUbicacion() {
@@ -20,11 +20,9 @@ export default function AsignarUbicacion() {
   const [cargando, setCargando] = useState(false);
 
   useEffect(() => {
-    // Al montar el componente, cargar la última ubicación guardada localmente o en Firestore
     const cargarUltimaUbicacion = async () => {
       setCargando(true);
       try {
-        // Intentar cargar de AsyncStorage primero (local)
         const ubicacionLocal = await AsyncStorage.getItem('ultimaUbicacion');
         const direccionLocal = await AsyncStorage.getItem('ultimaDireccion');
 
@@ -33,7 +31,6 @@ export default function AsignarUbicacion() {
           setDireccion(direccionLocal || '');
           setCargando(false);
         } else if (auth.currentUser) {
-          // Si no hay local, cargar desde Firestore
           const uid = auth.currentUser.uid;
           const docRef = doc(db, 'ubicacion', uid);
           const docSnap = await getDoc(docRef);
@@ -70,7 +67,6 @@ export default function AsignarUbicacion() {
       let location = await Location.getCurrentPositionAsync({});
       setUbicacion(location.coords);
 
-      // Obtener dirección legible
       const reverseGeocode = await Location.reverseGeocodeAsync(location.coords);
       let direccionTexto = '';
       if (reverseGeocode.length > 0) {
@@ -79,11 +75,9 @@ export default function AsignarUbicacion() {
         setDireccion(direccionTexto);
       }
 
-      // Guardar en AsyncStorage localmente
       await AsyncStorage.setItem('ultimaUbicacion', JSON.stringify(location.coords));
       await AsyncStorage.setItem('ultimaDireccion', direccionTexto);
 
-      // Guardar en Firestore con datos del usuario
       if (auth.currentUser) {
         const { uid, displayName, email } = auth.currentUser;
         const ubicacionRef = doc(db, 'ubicacion', uid);
@@ -164,7 +158,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 40,
     alignItems: 'center',
-    backgroundColor: '#000',  // Aquí pones el fondo negro para igualar a otras interfaces
+    backgroundColor: '#000',  
   },
   titulo: {
     fontSize: 26,
@@ -205,3 +199,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
