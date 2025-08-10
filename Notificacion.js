@@ -18,7 +18,7 @@ import { collection, query, where, onSnapshot } from 'firebase/firestore';
 export default function Pedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
-  const [userAddress, setUserAddress] = useState(null); // Dirección texto
+  const [userAddress, setUserAddress] = useState(null); 
   const [repartidorLocation, setRepartidorLocation] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
@@ -141,18 +141,15 @@ export default function Pedidos() {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
-        {/* Título */}
+       
         <Text style={styles.title}>Tus Pedidos</Text>
 
-        {/* Dirección del usuario */}
         {userAddress && (
           <View style={styles.direccionContainer}>
             <Text style={styles.direccionLabel}>Tu ubicación:</Text>
             <Text style={styles.direccionTexto}>{userAddress}</Text>
           </View>
         )}
-
-        {/* Lista de pedidos */}
         {loading && <ActivityIndicator size="large" color="#E499DC" />}
         {!loading && pedidos.length === 0 && (
           <Text style={styles.noPedidos}>No tienes pedidos realizados.</Text>
@@ -161,11 +158,10 @@ export default function Pedidos() {
           data={pedidos}
           keyExtractor={(item) => item.id}
           renderItem={renderPedido}
-          scrollEnabled={false} // Desactivamos scroll en FlatList porque ScrollView controla el scroll
+          scrollEnabled={false} 
           contentContainerStyle={{ paddingBottom: 20, marginTop: 10 }}
         />
 
-        {/* Ubicación del repartidor */}
         <Text style={styles.ubicacionTitle}>Ubicación del repartidor</Text>
         {userLocation && repartidorLocation ? (
           <>
@@ -189,7 +185,6 @@ export default function Pedidos() {
         )}
       </ScrollView>
 
-      {/* Navegación inferior */}
       <View style={styles.navbar}>
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Ionicons name="home" size={24} color="#E499DC" />
@@ -296,3 +291,4 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
 });
+
