@@ -10,17 +10,14 @@ import {
   TextInput,
   Image,
 } from 'react-native';
-import { auth } from './firebase'; // Tu configuración Firebase
+import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 
-// Firestore imports
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
-// Firebase Storage imports
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-// Image picker
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const db = getFirestore();
@@ -28,7 +25,7 @@ const storage = getStorage();
 
 export default function Perfil() {
   const navigation = useNavigation();
-  const [user, setUser] = useState(null);       // Usuario Auth
+  const [user, setUser] = useState(null);     
   const [profile, setProfile] = useState({
     nombre: '',
     edad: '',
@@ -59,7 +56,6 @@ export default function Perfil() {
               fotoURL: docSnap.data().fotoURL || '',
             });
           } else {
-            // documento no existe, perfil vacío
             setProfile({
               nombre: '',
               edad: '',
@@ -106,7 +102,6 @@ export default function Perfil() {
 };
 
 
-  // Selector de imagen
   const selectImage = () => {
     launchImageLibrary(
       {
@@ -117,7 +112,7 @@ export default function Perfil() {
       },
       async (response) => {
         if (response.didCancel) {
-          // Usuario canceló
+      
           return;
         } else if (response.errorCode) {
           Alert.alert('Error', 'Error al seleccionar imagen: ' + response.errorMessage);
@@ -125,7 +120,6 @@ export default function Perfil() {
         } else if (response.assets && response.assets.length > 0) {
           const asset = response.assets[0];
           if (asset.uri) {
-            // Subir imagen a Firebase Storage
             await uploadImage(asset.uri);
           }
         }
@@ -150,7 +144,6 @@ export default function Perfil() {
   };
 
   const handleSave = async () => {
-    // Validar datos básicos (opcional)
     if (profile.nombre.trim() === '') {
       Alert.alert('Validación', 'El nombre es obligatorio.');
       return;
@@ -358,3 +351,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
