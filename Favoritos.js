@@ -1,4 +1,4 @@
-// FAVORITOS.JS - Interfaz de productos favoritos
+
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -57,7 +57,6 @@ export default function Favoritos() {
         ListEmptyComponent={<Text style={styles.empty}>No tienes productos favoritos.</Text>}
       />
 
-      {/* Bottom Navigation */}
       <View style={styles.navbar}>
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Ionicons name="home" size={24} color="#E499DC" />
@@ -112,3 +111,4 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
 });
+
