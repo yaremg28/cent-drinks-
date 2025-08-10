@@ -58,14 +58,14 @@ export default function Carrito() {
   const eliminarProducto = async (id) => {
     try {
       await deleteDoc(doc(db, 'carrito', id));
-      obtenerCarrito(); // Recargar lista
+      obtenerCarrito(); 
     } catch (error) {
       console.error('Error al eliminar producto:', error);
     }
   };
 
   const actualizarCantidad = async (id, nuevaCantidad) => {
-    if (nuevaCantidad < 1) return; // No permitir cantidades menores a 1
+    if (nuevaCantidad < 1) return; 
     try {
       const docRef = doc(db, 'carrito', id);
       await updateDoc(docRef, { cantidad: nuevaCantidad });
@@ -82,7 +82,6 @@ export default function Carrito() {
     }
 
     try {
-      // Obtener datos del usuario (ejemplo: dirección)
       const usuarioRef = doc(db, 'registro', auth.currentUser.uid);
       const usuarioSnap = await getDoc(usuarioRef);
 
@@ -94,10 +93,8 @@ export default function Carrito() {
       const usuarioData = usuarioSnap.data();
       const direccion = usuarioData.direccion || 'Sin dirección';
 
-      // Fecha y hora actual
       const fecha = new Date();
 
-      // Crear el objeto pedido con los datos
       const pedido = {
         uid: auth.currentUser.uid,
         fecha: fecha.toISOString(),
@@ -112,15 +109,12 @@ export default function Carrito() {
         estado: 'Pendiente',
       };
 
-      // Guardar pedido en Firestore
       await addDoc(collection(db, 'pedidos'), pedido);
 
-      // Limpiar carrito
       for (const item of carrito) {
         await deleteDoc(doc(db, 'carrito', item.id));
       }
 
-      // Refrescar carrito (vaciar)
       setCarrito([]);
       setTotal(0);
 
@@ -192,7 +186,6 @@ export default function Carrito() {
         <Ionicons name="arrow-back-circle" size={40} color="#fff" />
       </TouchableOpacity>
 
-      {/* Bottom Navigation */}
       <View style={styles.navbar}>
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Ionicons name="home" size={24} color="#E499DC" />
@@ -329,3 +322,4 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
 });
+
